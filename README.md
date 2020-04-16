@@ -1,6 +1,7 @@
 # newemployee_android_10
 
 ## DBHelper
+テーブルの作成(CREATE TABLE)
 
 ```
 import android.content.Context
@@ -34,3 +35,19 @@ class DatabaseHelper(context: Context) :
     }
 }
 ```
+
+## データ登録 (INSERT)
+
+```
+val sqlInser = "INSERT INTO cocktailmemos (_id, name, note) VALUES (? , ? , ?)"
+stmt = db.compileStatement(sqlInser)
+stmt.bindLong(1, _cocktialdId.toLong())
+stmt.bindString(2,_cocktailName)
+stmt.bindString(3, note)
+stmt.executeInsert()
+```        
+
+
+
+
+
