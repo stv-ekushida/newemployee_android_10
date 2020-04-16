@@ -39,6 +39,8 @@ class DatabaseHelper(context: Context) :
 ## データ登録 (INSERT)
 
 ```
+val db = _helper.writableDatabase
+
 val sqlInser = "INSERT INTO cocktailmemos (_id, name, note) VALUES (? , ? , ?)"
 stmt = db.compileStatement(sqlInser)
 stmt.bindLong(1, _cocktialdId.toLong())
@@ -47,7 +49,31 @@ stmt.bindString(3, note)
 stmt.executeInsert()
 ```        
 
+## データ削除 (DELETE)
 
+```
+val db = _helper.writableDatabase
 
+val sqliteDelete = "DELETE FROM cocktailmemos WHERE _id = ?"
+var stmt = db.compileStatement(sqliteDelete)
+stmt.bindLong(1, _cocktialdId.toLong())
+stmt.executeUpdateDelete()
+```        
 
+## データ参照 (SELECT)
+
+```
+val db = _helper.writableDatabase
+
+val sql = "SELECT _id, name, note FROM cocktailmemos WHERE _id = ${_cocktialdId}"
+val cusor = db.rawQuery(sql, null)
+
+var note = ""
+
+while (cusor.moveToNext()) {
+   val idNote = cusor.getColumnIndex("note")
+   note = cusor.getString(idNote)
+}                
+
+```        
 
